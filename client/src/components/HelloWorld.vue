@@ -9,7 +9,7 @@
       <v-toolbar
         flat
       >
-        <v-toolbar-title>My CRUD</v-toolbar-title>
+        <v-toolbar-title>My Contacts</v-toolbar-title>
         <v-divider
           class="mx-4"
           inset
@@ -46,7 +46,7 @@
                   >
                     <v-text-field
                       v-model="editedItem.name"
-                      label="Dessert name"
+                      label="Contact name"
                     ></v-text-field>
                   </v-col>
                   <v-col
@@ -56,7 +56,7 @@
                   >
                     <v-text-field
                       v-model="editedItem.calories"
-                      label="Calories"
+                      label="Personal mobile"
                     ></v-text-field>
                   </v-col>
                   <v-col
@@ -66,7 +66,7 @@
                   >
                     <v-text-field
                       v-model="editedItem.fat"
-                      label="Fat (g)"
+                      label="Personal landline"
                     ></v-text-field>
                   </v-col>
                   <v-col
@@ -76,7 +76,7 @@
                   >
                     <v-text-field
                       v-model="editedItem.carbs"
-                      label="Carbs (g)"
+                      label="Fax"
                     ></v-text-field>
                   </v-col>
                   <v-col
@@ -86,7 +86,7 @@
                   >
                     <v-text-field
                       v-model="editedItem.protein"
-                      label="Protein (g)"
+                      label="Email"
                     ></v-text-field>
                   </v-col>
                 </v-row>
@@ -157,15 +157,14 @@
       dialogDelete: false,
       headers: [
         {
-          text: 'Dessert (100g serving)',
+          text: 'Contact name',
           align: 'start',
-          sortable: false,
           value: 'name',
         },
-        { text: 'Calories', value: 'calories' },
-        { text: 'Fat (g)', value: 'fat' },
-        { text: 'Carbs (g)', value: 'carbs' },
-        { text: 'Protein (g)', value: 'protein' },
+        { text: 'Personal mobile', value: 'calories' },
+        { text: 'Personal landline', value: 'fat' },
+        { text: 'Email', value: 'carbs' },
+        { text: 'Fax', value: 'protein' },
         { text: 'Actions', value: 'actions', sortable: false },
       ],
       desserts: [],
