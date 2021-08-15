@@ -6,12 +6,25 @@ const userSchema = new Schema(
       type: String,
       required: [true, 'name field is required'],
     },
-    age: {
-      type: Number,
-      required: [true, 'age field is required'],
+    mobile: {
+      type: String,
+      required: [true, 'name field is required'],
     },
+    landline: {
+      type: String,
+      required: [true, 'name field is required'],
+    },
+    email: {
+      type: String,
+      required: [true, 'name field is required'],
+    },
+    fax: {
+      type: String,
+      required: [true, 'name field is required'],
+    },
+    
   },
   { timestamps: true },
 );
 
-module.exports = model('users', userSchema);
+module.exports = model('contacts', userSchema);
