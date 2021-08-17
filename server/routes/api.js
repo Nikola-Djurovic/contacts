@@ -17,11 +17,11 @@ const router = express.Router();
 
 router
   .post('/contacts/', createData)
-  .get('/contacts/', readData)
+  .get('/contacts/:id', readData)
   .put('/contacts/:id', updateData)
   .delete('/contacts/:id', deleteData)
   .post('/login/', createLogin)
-  .get('/login/', readLogin)
+  .get('/login/:userid', readLogin)
   .put('/login/:id', updateLogin)
   .delete('/login/:id', deleteLogin);
   

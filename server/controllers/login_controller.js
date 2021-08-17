@@ -20,7 +20,7 @@ const createLogin = (req, res) => {
 };
 
 const readLogin = (req, res) => {
-  Login.find()
+  Login.find({username:req.params.userid})
     .then((data) => {
       res.status(200).json(data);
     })

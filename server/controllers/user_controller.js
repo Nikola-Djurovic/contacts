@@ -20,7 +20,7 @@ const createData = (req, res) => {
 };
 
 const readData = (req, res) => {
-  User.find()
+  User.find({ownerId:req.params.id})
     .then((data) => {
       res.status(200).json(data);
     })
