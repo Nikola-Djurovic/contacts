@@ -22,6 +22,9 @@ const userSchema = new Schema(
       type: String,
       required: [true, 'name field is required'],
     },
+    ownerId: {
+      type: Number
+    }
     
   },
   { timestamps: true },

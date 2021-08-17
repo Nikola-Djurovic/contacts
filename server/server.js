@@ -8,7 +8,7 @@ require('dotenv').config();
 require("./helpers/db/mongodb.js")();
 
 // Configuring port
-const port = process.env.PORT || 9000;
+const port = process.env.PORT || 9003;
 
 const app = express();
 
