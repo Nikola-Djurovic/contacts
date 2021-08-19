@@ -10,21 +10,22 @@
       @blur="$v.name.$touch()"
     ></v-text-field>
     <v-text-field
-      v-model="email"
-      :error-messages="emailErrors"
-      label="E-mail"
+      v-model="password"
+      hint="At least 8 characters"
+      label="Password"
       required
       @input="$v.email.$touch()"
       @blur="$v.email.$touch()"
+      :type="show1 ? 'text' : 'password'"
     ></v-text-field>
     <v-btn
       class="mr-4"
       @click="submit"
     >
-      submit
+      Log in
     </v-btn>
     <v-btn @click="clear">
-      clear
+      Register
     </v-btn>
   </form>
 </template>
