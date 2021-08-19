@@ -1,5 +1,5 @@
 <template>
-  <form >
+  <form>
     <v-text-field
       v-model="name"
       :error-messages="nameErrors"
@@ -14,15 +14,12 @@
       hint="At least 8 characters"
       label="Password"
       required
-      @input="$v.email.$touch()"
-      @blur="$v.email.$touch()"
-      :type="show1 ? 'text' : 'password'"
+      :type="false ? 'text' : 'password'"
     ></v-text-field>
     <v-btn
       class="mr-4"
       @click="submit"
-    >
-      Log in
+    >Log in
     </v-btn>
     <v-btn @click="clear">
       Register
@@ -30,26 +27,22 @@
   </form>
 </template>
 <script>
+/* eslint-disable */
   import { validationMixin } from 'vuelidate'
-  import { required, maxLength, email } from 'vuelidate/lib/validators'
+  import { required, maxLength} from 'vuelidate/lib/validators'
 
   export default {
     mixins: [validationMixin],
 
     validations: {
       name: { required, maxLength: maxLength(10) },
-      email: { required, email },
-      select: { required },
-      checkbox: {
-        checked (val) {
-          return val
-        },
-      },
+      
+      
     },
 
     data: () => ({
       name: '',
-      email: '',
+      password: '',
       select: null,
     }),
 
@@ -61,25 +54,25 @@
         !this.$v.name.required && errors.push('Username is required.')
         return errors
       },
-      emailErrors () {
-        const errors = []
-        if (!this.$v.email.$dirty) return errors
-        !this.$v.email.email && errors.push('Must be valid e-mail')
-        !this.$v.email.required && errors.push('E-mail is required')
-        return errors
-      },
+      
     },
 
     methods: {
       submit () {
-        this.$v.$touch()
+        fetch("http://localhost:9000/api/login",{
+          method: "Post",
+          headers: {
+            "Content-Type":"application/json"
+          },
+          body: JSON.stringify({
+            username: this.name,
+            hashedpassword: this.password
+          })
+        });
       },
+    
       clear () {
-        this.$v.$reset()
-        this.name = ''
-        this.email = ''
-        this.select = null
-        this.checkbox = false
+        
       },
     },
   }

@@ -4,11 +4,11 @@ const loginSchema = new Schema(
   {
     username: {
       type: String,
-      required: [true, 'name field is required'],
+      /*required: [true, 'username field is required'],*/
     },
     hashedpassword: {
       type: String,
-      required: [true, 'name field is required'],
+      required: [true, 'hashedpassword field is required'],
     },
     ownerId: {
       type: Number
