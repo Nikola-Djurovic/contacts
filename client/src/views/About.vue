@@ -30,6 +30,7 @@
 /* eslint-disable */
   import { validationMixin } from 'vuelidate'
   import { required, maxLength} from 'vuelidate/lib/validators'
+  
 
   export default {
     mixins: [validationMixin],
@@ -58,8 +59,8 @@
     },
 
     methods: {
-      submit () {
-        fetch("http://localhost:9000/api/login",{
+      async submit () {
+        const response = await fetch("http://localhost:9000/api/login",{
           method: "Post",
           headers: {
             "Content-Type":"application/json"
@@ -69,6 +70,17 @@
             hashedpassword: this.password
           })
         });
+        const {token} = await response.json();
+        //this.$store.setToken(token);
+        if(token != null)
+        {
+        this.$store.commit('setToken',token);
+        this.$store.commit('setLogin',true);
+        }
+        else
+        {
+          alert("Bad login credentials");
+        }
       },
     
       clear () {

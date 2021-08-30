@@ -1,13 +1,27 @@
 'use strict';
-
+var jwt = require('jsonwebtoken'); 
 const Login = require('../models/login_schema');
 
 const createLogin = (req, res) => {
-  Login.create(req.body)
-    .then((data) => {
-      console.log('New Login Created!', data);
-      res.status(201).json(data);
-    })
+  Login.find({username:req.body.username}).then((data)=>
+    { 
+      //console.log(req.body.hashedpassword);
+      if(data[0].hashedpassword==req.body.hashedpassword)
+      {
+        var token = jwt.sign(data[0].ownerId,"A bit of spice");
+        res.status(200).json({'token':token});
+      }
+      else
+      {
+      res.status(201).json({message:"Bad password"});
+      }
+    }
+  )
+  // Login.create(req.body)
+  //   .then((data) => {
+  //     console.log('New Login Created!', data);
+  //     res.status(201).json(data);
+    
     .catch((err) => {
       if (err.name === 'ValidationError') {
         console.error('Error Validating!', err);
