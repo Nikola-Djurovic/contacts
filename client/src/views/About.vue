@@ -67,7 +67,7 @@
           },
           body: JSON.stringify({
             username: this.name,
-            hashedpassword: this.password
+            hashedpassword: sha256(this.password)
           })
         });
         const {token,ownerId} = await response.json();
@@ -90,10 +90,11 @@
         var pass = sha256(this.password);
         console.log(this.name);
         console.log(this.password);
-        axios.post("http://localhost:9000/api/login",{
+        var str
+        axios.post("http://localhost:9000/api/login/register",{
           username: this.name,
-          hashedpassword: String(pass),
-          ownerId: 5
+          hashedpassword: pass,
+          ownerId: Date.now()
         });
 
       },

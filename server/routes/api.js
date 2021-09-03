@@ -12,7 +12,9 @@ const {
   updateLogin,
   deleteLogin,
 } = require('../controllers/login_controller');
-
+const {
+  createTokenTime
+} = require('../controllers/token_controller');
 const router = express.Router();
 
 router
@@ -22,7 +24,7 @@ router
   .delete('/contacts/:id', deleteData)
   .post('/login/', createLogin)
   .get('/login/:userid', readLogin)
-  .put('/login/:id', updateLogin)
-  .delete('/login/:id', deleteLogin);
-  
+  .post('/login/register', updateLogin)
+  .delete('/login/:id', deleteLogin)
+  .post('/login/timestamp/',createTokenTime);
 module.exports = router;

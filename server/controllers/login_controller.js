@@ -1,6 +1,7 @@
 'use strict';
 var jwt = require('jsonwebtoken'); 
 const Login = require('../models/login_schema');
+const Token = require('../models/tokens_shema');
 
 const createLogin = (req, res) => {
   Login.find({username:req.body.username}).then((data)=>
@@ -9,6 +10,11 @@ const createLogin = (req, res) => {
       if(data[0].hashedpassword==req.body.hashedpassword)
       {
         var token = jwt.sign(data[0].ownerId,"A bit of spice");
+        Token.create({
+          ownerId: data[0].ownerId,
+          token: token,
+          time: Date.now()
+        });
         res.status(200).json({'token':token,'ownerId':data[0].ownerId});
       }
       else
@@ -17,6 +23,7 @@ const createLogin = (req, res) => {
       }
     }
   )
+
   // Login.create(req.body)
   //   .then((data) => {
   //     console.log('New Login Created!', data);
@@ -45,12 +52,9 @@ const readLogin = (req, res) => {
 };
 
 const updateLogin = (req, res) => {
-  Login.findByIdAndUpdate(req.params.id, req.body, {
-    useFindAndModify: false,
-    new: true,
-  })
+  Login.create(req.body)
     .then((data) => {
-      console.log('Login updated!');
+      console.log('New Login Created!', data);
       res.status(201).json(data);
     })
     .catch((err) => {
@@ -63,6 +67,7 @@ const updateLogin = (req, res) => {
       }
     });
 };
+
 
 const deleteLogin = (req, res) => {
   Login.findById(req.params.id)

@@ -224,8 +224,9 @@ const axios = require('axios');
       },
 
       deleteItemConfirm () {
-        this.contactdetails.splice(this.editedIndex, 1)
+        axios.delete("http://localhost:9000/api/contacts/"+this.contactdetails[this.editedIndex]._id);
         this.closeDelete()
+        this.contactdetails.splice(this.editedIndex, 1);
       },
 
       close () {
