@@ -246,6 +246,36 @@ const axios = require('axios');
       },
 
        async save () {
+        if(this.editedItem.name.length > 20)
+        {
+          alert("Contact name is too long. Keep it under 20 characters.");
+          return;
+        }
+        if(this.editedItem.name.length == 0)
+        {
+          alert("Contact name cannot be empty.");
+          return;
+        }
+        if(this.editedItem.mobile.length > 15)
+        {
+          alert("Mobile length too long.");
+          return;
+        }
+        if(this.editedItem.fax.length > 10)
+        {
+          alert("Fax length too long.");
+          return;
+        }
+        if(this.editedItem.landline.length > 10)
+        {
+          alert("Landline length too long.");
+          return;
+        }
+        if(this.editedItem.email.length > 20)
+        {
+          alert("Fax length too long.");
+          return;
+        }
         if (this.editedIndex > -1) {
           Object.assign(this.contactdetails[this.editedIndex], this.editedItem)
           console.log('http://localhost:9000/api/contacts/'+this.editedItem._id);

@@ -21,6 +21,9 @@ const store =  new Vuex.Store({
     },
     setOwnerId(state, ownerId){
       state.ownerId = ownerId;
+    },
+    setUsername(state, username){
+      state.username = username;
     }
   },
   getters: {
@@ -32,6 +35,9 @@ const store =  new Vuex.Store({
     },
     getOwnerId(state){
       return state.ownerId;
+    },
+    getUsername(state){
+      return state.username;
     }
 
   }

@@ -60,6 +60,11 @@
 
     methods: {
       async submit () {
+        if(this.password.length<4)
+        {
+          alert("Password needs to be at least 4 characters long")
+        }
+        else{
         const response = await fetch("http://localhost:9000/api/login",{
           method: "Post",
           headers: {
@@ -78,25 +83,32 @@
         this.$store.commit('setToken',token);
         this.$store.commit('setLogin',true);
         this.$store.commit('setOwnerId',ownerId);
+        this.$store.commit('setUsername',this.name);
         this.$router.push('/');
         }
         else
         {
           alert("Bad login credentials");
         }
+        }
       },
     
       async register () {
+        if(this.password.length<4)
+        {
+          alert("Password needs to be at least 4 characters long")
+        }
+        else
+        {
         var pass = sha256(this.password);
-        console.log(this.name);
-        console.log(this.password);
         var str
         axios.post("http://localhost:9000/api/login/register",{
           username: this.name,
           hashedpassword: pass,
           ownerId: Date.now()
         });
-
+        alert("Registratin success. Please try to sign in.");
+        }
       },
     },
   }

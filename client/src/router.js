@@ -17,6 +17,11 @@ export default new Router({
       path: "/login",
       name: "login",
       component: () => import("./views/About.vue")
+    },
+    {
+      path: "*",
+      name: "404 error",
+      component: () => import("./views/404.vue")
     }
   ]
 });
