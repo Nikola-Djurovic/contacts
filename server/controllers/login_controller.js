@@ -9,7 +9,7 @@ const createLogin = (req, res) => {
       if(data[0].hashedpassword==req.body.hashedpassword)
       {
         var token = jwt.sign(data[0].ownerId,"A bit of spice");
-        res.status(200).json({'token':token});
+        res.status(200).json({'token':token,'ownerId':data[0].ownerId});
       }
       else
       {

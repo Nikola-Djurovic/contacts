@@ -8,19 +8,19 @@ const userSchema = new Schema(
     },
     mobile: {
       type: String,
-      required: [true, 'name field is required'],
+      required: [true, 'mobile field is required'],
     },
     landline: {
       type: String,
-      required: [true, 'name field is required'],
+      required: [true, 'landline field is required'],
     },
     email: {
       type: String,
-      required: [true, 'name field is required'],
+      required: [true, 'email field is required'],
     },
     fax: {
       type: String,
-      required: [true, 'name field is required'],
+      required: [true, 'fax field is required'],
     },
     ownerId: {
       type: Number

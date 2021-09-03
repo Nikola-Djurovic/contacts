@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <HelloWorld msg="Default Boilerplate Template" />
+    <HelloWorld msg="Default Boilerplate Template" v-if="this.$store.getters.getLogin"/>
   </div>
 </template>
 

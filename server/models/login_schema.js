@@ -4,7 +4,7 @@ const loginSchema = new Schema(
   {
     username: {
       type: String,
-      /*required: [true, 'username field is required'],*/
+      required: [true, 'username field is required'],
     },
     hashedpassword: {
       type: String,

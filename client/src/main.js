@@ -18,7 +18,22 @@ const store =  new Vuex.Store({
     },
     setToken(state, token){
       state.token = token;
+    },
+    setOwnerId(state, ownerId){
+      state.ownerId = ownerId;
     }
+  },
+  getters: {
+    getLogin(state){
+      return state.loggedin;
+    },
+    getToken(state){
+      return state.token;
+    },
+    getOwnerId(state){
+      return state.ownerId;
+    }
+
   }
 })
 new Vue({

@@ -19,9 +19,9 @@
     <v-btn
       class="mr-4"
       @click="submit"
-    >Log in
+    >Login
     </v-btn>
-    <v-btn @click="clear">
+    <v-btn @click="register">
       Register
     </v-btn>
   </form>
@@ -30,8 +30,8 @@
 /* eslint-disable */
   import { validationMixin } from 'vuelidate'
   import { required, maxLength} from 'vuelidate/lib/validators'
-  
-
+  const axios = require('axios');
+  var sha256 = require('js-sha256');
   export default {
     mixins: [validationMixin],
 
@@ -70,12 +70,15 @@
             hashedpassword: this.password
           })
         });
-        const {token} = await response.json();
+        const {token,ownerId} = await response.json();
+        console.log(ownerId);
         //this.$store.setToken(token);
         if(token != null)
         {
         this.$store.commit('setToken',token);
         this.$store.commit('setLogin',true);
+        this.$store.commit('setOwnerId',ownerId);
+        this.$router.push('/');
         }
         else
         {
@@ -83,8 +86,16 @@
         }
       },
     
-      clear () {
-        
+      async register () {
+        var pass = sha256(this.password);
+        console.log(this.name);
+        console.log(this.password);
+        axios.post("http://localhost:9000/api/login",{
+          username: this.name,
+          hashedpassword: String(pass),
+          ownerId: 5
+        });
+
       },
     },
   }

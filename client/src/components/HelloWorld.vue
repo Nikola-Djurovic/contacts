@@ -1,8 +1,8 @@
 <template>
   <v-data-table
     :headers="headers"
-    :items="desserts"
-    sort-by="calories"
+    :items="contactdetails"
+    sort-by="mobile"
     class="elevation-1"
   >
     <template v-slot:top>
@@ -55,7 +55,7 @@
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.calories"
+                      v-model="editedItem.mobile"
                       label="Personal mobile"
                     ></v-text-field>
                   </v-col>
@@ -65,7 +65,7 @@
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.fat"
+                      v-model="editedItem.landline"
                       label="Personal landline"
                     ></v-text-field>
                   </v-col>
@@ -75,7 +75,7 @@
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.carbs"
+                      v-model="editedItem.email"
                       label="Fax"
                     ></v-text-field>
                   </v-col>
@@ -85,7 +85,7 @@
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.protein"
+                      v-model="editedItem.fax"
                       label="Email"
                     ></v-text-field>
                   </v-col>
@@ -125,7 +125,7 @@
         </v-dialog>
       </v-toolbar>
     </template>
-    <template v-slot:item.actions="{ item }">
+    <template v-slot:[`item.actions`]="{ item }">
       <v-icon
         small
         class="mr-2"
@@ -151,6 +151,7 @@
   </v-data-table>
 </template>
 <script>
+const axios = require('axios');
   export default {
     data: () => ({
       dialog: false,
@@ -161,27 +162,27 @@
           align: 'start',
           value: 'name',
         },
-        { text: 'Personal mobile', value: 'calories' },
-        { text: 'Personal landline', value: 'fat' },
-        { text: 'Email', value: 'carbs' },
-        { text: 'Fax', value: 'protein' },
+        { text: 'Personal mobile', value: 'mobile' },
+        { text: 'Personal landline', value: 'landline' },
+        { text: 'Email', value: 'email' },
+        { text: 'Fax', value: 'fax' },
         { text: 'Actions', value: 'actions', sortable: false },
       ],
-      desserts: [],
+      contactdetails: [],
       editedIndex: -1,
       editedItem: {
         name: '',
-        calories: 0,
-        fat: 0,
-        carbs: 0,
-        protein: 0,
+        mobile: 0,
+        landline: 0,
+        email: 0,
+        fax: 0,
       },
       defaultItem: {
         name: '',
-        calories: 0,
-        fat: 0,
-        carbs: 0,
-        protein: 0,
+        mobile: 0,
+        landline: 0,
+        email: 0,
+        fax: 0,
       },
     }),
 
@@ -205,95 +206,25 @@
     },
 
     methods: {
-      initialize () {
-        this.desserts = [
-          {
-            name: 'Frozen Yogurt',
-            calories: 159,
-            fat: 6.0,
-            carbs: 24,
-            protein: 4.0,
-          },
-          {
-            name: 'Ice cream sandwich',
-            calories: 237,
-            fat: 9.0,
-            carbs: 37,
-            protein: 4.3,
-          },
-          {
-            name: 'Eclair',
-            calories: 262,
-            fat: 16.0,
-            carbs: 23,
-            protein: 6.0,
-          },
-          {
-            name: 'Cupcake',
-            calories: 305,
-            fat: 3.7,
-            carbs: 67,
-            protein: 4.3,
-          },
-          {
-            name: 'Gingerbread',
-            calories: 356,
-            fat: 16.0,
-            carbs: 49,
-            protein: 3.9,
-          },
-          {
-            name: 'Jelly bean',
-            calories: 375,
-            fat: 0.0,
-            carbs: 94,
-            protein: 0.0,
-          },
-          {
-            name: 'Lollipop',
-            calories: 392,
-            fat: 0.2,
-            carbs: 98,
-            protein: 0,
-          },
-          {
-            name: 'Honeycomb',
-            calories: 408,
-            fat: 3.2,
-            carbs: 87,
-            protein: 6.5,
-          },
-          {
-            name: 'Donut',
-            calories: 452,
-            fat: 25.0,
-            carbs: 51,
-            protein: 4.9,
-          },
-          {
-            name: 'KitKat',
-            calories: 518,
-            fat: 26.0,
-            carbs: 65,
-            protein: 7,
-          },
-        ]
+      async initialize () {
+        let res = await axios.get("http://localhost:9000/api/contacts/"+this.$store.getters.getOwnerId);
+        this.contactdetails = res.data;
       },
 
       editItem (item) {
-        this.editedIndex = this.desserts.indexOf(item)
+        this.editedIndex = this.contactdetails.indexOf(item)
         this.editedItem = Object.assign({}, item)
         this.dialog = true
       },
 
       deleteItem (item) {
-        this.editedIndex = this.desserts.indexOf(item)
+        this.editedIndex = this.contactdetails.indexOf(item)
         this.editedItem = Object.assign({}, item)
         this.dialogDelete = true
       },
 
       deleteItemConfirm () {
-        this.desserts.splice(this.editedIndex, 1)
+        this.contactdetails.splice(this.editedIndex, 1)
         this.closeDelete()
       },
 
@@ -313,12 +244,31 @@
         })
       },
 
-      save () {
+       async save () {
         if (this.editedIndex > -1) {
-          Object.assign(this.desserts[this.editedIndex], this.editedItem)
-        } else {
-          this.desserts.push(this.editedItem)
+          Object.assign(this.contactdetails[this.editedIndex], this.editedItem)
+          console.log('http://localhost:9000/api/contacts/'+this.editedItem._id);
+          axios.put('http://localhost:9000/api/contacts/'+this.editedItem._id, {
+            name:this.editedItem.name,
+            mobile:this.editedItem.mobile,
+            landline:this.editedItem.landline,
+            email:this.editedItem.email,
+            fax:this.editedItem.fax,
+            ownerId:this.editedItem.ownerId});
+            
+          } else {
+            console.log("OvDE SAM"+this.$store.getters.getOwnerId);
+          axios.post('http://localhost:9000/api/contacts/',{
+            name:this.editedItem.name,
+            mobile:this.editedItem.mobile,
+            landline:this.editedItem.landline,
+            email:this.editedItem.email,
+            fax:this.editedItem.fax,
+            ownerId:this.$store.getters.getOwnerId});
+          this.contactdetails.push(this.editedItem)
         }
+        let res = await axios.get("http://localhost:9000/api/contacts/"+this.$store.getters.getOwnerId);
+        this.contactdetails = res.data;
         this.close()
       },
     },
