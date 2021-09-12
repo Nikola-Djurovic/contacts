@@ -286,7 +286,7 @@ const axios = require('axios');
             email:this.editedItem.email,
             fax:this.editedItem.fax,
             ownerId:this.editedItem.ownerId});
-            
+           
           } else {
             console.log("OvDE SAM"+this.$store.getters.getOwnerId);
           axios.post('http://localhost:9000/api/contacts/',{
@@ -295,6 +295,7 @@ const axios = require('axios');
             landline:this.editedItem.landline,
             email:this.editedItem.email,
             fax:this.editedItem.fax,
+            id:Date.now()%10000,
             ownerId:this.$store.getters.getOwnerId});
           this.contactdetails.push(this.editedItem)
         }

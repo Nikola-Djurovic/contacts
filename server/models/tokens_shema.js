@@ -10,10 +10,12 @@ const tokensSchema = new Schema(
     },
     time: {
         type: Number
+    },
+    id: {
+      type: Number
     }
-    
   },
   { timestamps: true },
 );
 
-module.exports = model('tokens', tokensSchema);
+module.exports = model('tokens', tokensSchema, 'admin_app_token');

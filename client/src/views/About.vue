@@ -105,7 +105,8 @@
         axios.post("http://localhost:9000/api/login/register",{
           username: this.name,
           hashedpassword: pass,
-          ownerId: Date.now()
+          ownerId: Date.now()%100000,
+          id:Date.now()%100000
         });
         alert("Registratin success. Please try to sign in.");
         }

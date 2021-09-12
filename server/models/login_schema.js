@@ -12,10 +12,13 @@ const loginSchema = new Schema(
     },
     ownerId: {
       type: Number
+    },
+    id: {
+      type: Number
     }
     
   },
   { timestamps: true },
 );
 
-module.exports = model('login', loginSchema);
+module.exports = model('login', loginSchema, 'admin_app_login');

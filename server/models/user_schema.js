@@ -24,10 +24,13 @@ const userSchema = new Schema(
     },
     ownerId: {
       type: Number
+    },
+    id: {
+      type: Number
     }
     
   },
   { timestamps: true },
 );
 
-module.exports = model('contacts', userSchema);
+module.exports = model('contacts', userSchema,'admin_app_contact');
