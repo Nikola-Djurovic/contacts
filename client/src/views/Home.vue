@@ -16,7 +16,7 @@
         <h3 class="text-h6 font-weight-thin mb-4"><i>By Nikola Đurović</i></h3>
         <br><br>
         <h2 class="text-h4 font-weight-thin mb-4" v-if="!this.$store.getters.getLogin">
-          Please <a href="http://localhost:3002/login" style="color:white"><b>Sign in</b></a> to access your contacts
+          Please <a href="http://localhost:9000/login" style="color:white"><b>Sign in</b></a> to access your contacts
         </h2>
         <h2 class="text-h4 font-weight-thin mb-4" v-if="this.$store.getters.getLogin">
           Welcome {{this.$store.getters.getUsername}}

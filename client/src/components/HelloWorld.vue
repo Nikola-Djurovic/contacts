@@ -47,6 +47,7 @@
                     <v-text-field
                       v-model="editedItem.name"
                       label="Contact name"
+                      required
                     ></v-text-field>
                   </v-col>
                   <v-col
@@ -54,9 +55,10 @@
                     sm="6"
                     md="4"
                   >
-                    <v-text-field
+                    <v-text-field 
                       v-model="editedItem.mobile"
                       label="Personal mobile"
+                      :rules="NumberRules"
                     ></v-text-field>
                   </v-col>
                   <v-col
@@ -67,6 +69,7 @@
                     <v-text-field
                       v-model="editedItem.landline"
                       label="Personal landline"
+                      :rules="NumberRules"
                     ></v-text-field>
                   </v-col>
                   <v-col
@@ -76,7 +79,9 @@
                   >
                     <v-text-field
                       v-model="editedItem.email"
-                      label="Fax"
+                      label="Email" 
+            :rules="emailRules"
+            required
                     ></v-text-field>
                   </v-col>
                   <v-col
@@ -85,8 +90,9 @@
                     md="4"
                   >
                     <v-text-field
+                    :rules="NumberRules"
                       v-model="editedItem.fax"
-                      label="Email"
+                      label="Fax"
                     ></v-text-field>
                   </v-col>
                 </v-row>
@@ -154,6 +160,13 @@
 const axios = require('axios');
   export default {
     data: () => ({
+      emailRules: [
+             (v) => !!v || 'E-mail is required',
+             (v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
+        ],
+      NumberRules:[
+            (v) => /^[0-9]+$/.test(v) || 'Must be a valid array of digets'
+      ],
       dialog: false,
       dialogDelete: false,
       headers: [
@@ -171,10 +184,10 @@ const axios = require('axios');
       contactdetails: [],
       editedIndex: -1,
       editedItem: {
-        name: '',
+        name: 'Name',
         mobile: 0,
         landline: 0,
-        email: 0,
+        email: 'an_email@mail.com',
         fax: 0,
       },
       defaultItem: {
@@ -261,7 +274,7 @@ const axios = require('axios');
           alert("Mobile length too long.");
           return;
         }
-        if(this.editedItem.fax.length > 10)
+        if(this.editedItem.fax.length > 12)
         {
           alert("Fax length too long.");
           return;
@@ -271,9 +284,9 @@ const axios = require('axios');
           alert("Landline length too long.");
           return;
         }
-        if(this.editedItem.email.length > 20)
+        if(this.editedItem.email.length > 40)
         {
-          alert("Fax length too long.");
+          alert("email length too long.");
           return;
         }
         if (this.editedIndex > -1) {
